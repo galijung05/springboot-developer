@@ -1,4 +1,4 @@
-package me.shinsunyoung.springbootdeveloper.test;
+package me.blogSpringBoot.springbootdeveloper.test;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

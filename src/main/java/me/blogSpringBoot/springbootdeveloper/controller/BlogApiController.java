@@ -1,9 +1,9 @@
-package me.shinsunyoung.springbootdeveloper.controller;
+package me.blogSpringBoot.springbootdeveloper.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.shinsunyoung.springbootdeveloper.domain.Article;
-import me.shinsunyoung.springbootdeveloper.dto.AddArticleRequest;
-import me.shinsunyoung.springbootdeveloper.service.BlogService;
+import me.blogSpringBoot.springbootdeveloper.domain.Article;
+import me.blogSpringBoot.springbootdeveloper.dto.AddArticleRequest;
+import me.blogSpringBoot.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

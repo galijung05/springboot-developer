@@ -15,6 +15,48 @@
 - 롬복 (Lombok)
 - H2
 
+#### 프로젝트 구조
+```
+springboot-developer
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── me.blogSpringBoot
+│   │   │       └── springbootdeveloper
+│   │   │           ├── controller
+│   │   │           │   └── BlogApiController
+│   │   │           ├── domain
+│   │   │           │   └── Article
+│   │   │           ├── dto
+│   │   │           │   ├── AddArticleRequest # 글 추가 요청을 위한 DTO 
+│   │   │           │   ├── ArticleResponse # 글 응답을 위한 DTO
+│   │   │           │   └── UpdateArticleRequest # 글 업데이트 요청을 위한 DTO
+│   │   │           ├── repository
+│   │   │           │   └── BlogRepository
+│   │   │           ├── service
+│   │   │           │   └── BlogService
+│   │   │           └── websocket
+│   │   │               └── 
+│   │   │
+│   │   └── resources
+│   │       ├── application.yml
+│   │       ├── application_test.yml
+│   │       └── data.sql
+│   │
+│   └── test
+│       ├── java
+│       │   └── me.blogSpringBoot
+│       │       └── springbootdeveloper
+│       │           ├── controller
+│       │           │   └── BlogApiControllerTest
+│       │           └── JUnitTest
+│       │               ├── JUnitCycleTest
+│       │               └── JUnitTest
+│       │
+│       └── resources
+│
+```
 #### 엔티티 구성
 |컬럼명|자료형| null 허용 | 키  | 설명 |
 |:-----|:------|:--------|:---|:-----|

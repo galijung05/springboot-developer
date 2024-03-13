@@ -1,4 +1,4 @@
-package me.shinsunyoung.springbootdeveloper.test;
+package me.blogSpringBoot.springbootdeveloper.test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

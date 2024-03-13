@@ -1,7 +1,7 @@
-package me.shinsunyoung.springbootdeveloper;
+package me.blogSpringBoot.springbootdeveloper;
 
-import me.shinsunyoung.springbootdeveloper.test.Member;
-import me.shinsunyoung.springbootdeveloper.test.MemberRepository;
+import me.blogSpringBoot.springbootdeveloper.test.Member;
+import me.blogSpringBoot.springbootdeveloper.test.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

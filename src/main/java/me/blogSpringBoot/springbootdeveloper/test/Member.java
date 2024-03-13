@@ -1,4 +1,4 @@
-package me.shinsunyoung.springbootdeveloper.test;
+package me.blogSpringBoot.springbootdeveloper.test;
 
 import jakarta.persistence.*;
 import lombok.*;

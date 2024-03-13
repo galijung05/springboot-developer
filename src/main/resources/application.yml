@@ -10,3 +10,7 @@ spring:
   h2:
     console:
       enabled: true
+
+react:
+  server:
+    front_url: http://localhost:3000
