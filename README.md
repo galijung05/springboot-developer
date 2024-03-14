@@ -24,20 +24,26 @@ springboot-developer
 │   │   ├── java
 │   │   │   └── me.blogSpringBoot
 │   │   │       └── springbootdeveloper
+│   │   │           ├── config
+│   │   │           │   ├── WebSecurityConfig
+│   │   │           │   └── WebSocketConfig
 │   │   │           ├── controller
-│   │   │           │   └── BlogApiController
+│   │   │           │   ├── BlogApiController
+│   │   │           │   └── WebSocketController
 │   │   │           ├── domain
 │   │   │           │   └── Article
 │   │   │           ├── dto
-│   │   │           │   ├── AddArticleRequest # 글 추가 요청을 위한 DTO 
-│   │   │           │   ├── ArticleResponse # 글 응답을 위한 DTO
-│   │   │           │   └── UpdateArticleRequest # 글 업데이트 요청을 위한 DTO
+│   │   │           │   ├── AddArticleRequest1
+│   │   │           │   ├── ArticleResponse
+│   │   │           │   ├── UpdateArticleRequest
+│   │   │           │   └── RandomMessageDTO
 │   │   │           ├── repository
 │   │   │           │   └── BlogRepository
 │   │   │           ├── service
 │   │   │           │   └── BlogService
 │   │   │           └── websocket
-│   │   │               └── 
+│   │   │               ├── WebSocketErrorHandler
+│   │   │               └── UserChannelInterceptor
 │   │   │
 │   │   └── resources
 │   │       ├── application.yml

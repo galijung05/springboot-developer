@@ -20,11 +20,6 @@ public class WebSocketController{
 
     private Random random = new Random();
 
-    @Data
-    public static class BaseDataDTO {
-        private Date sensingDate;
-    }
-
     // 클라이언트에서 보내는 메시지 내용
     @Data
     public static class MessageDTO {
