@@ -10,6 +10,14 @@ spring:
   h2:
     console:
       enabled: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  session:
+    store-type: redis # 세션 저장소 유형을 Redis로 설정
+    redis:
+      namespace: spring:session
 
 react:
   server:

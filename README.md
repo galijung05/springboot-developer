@@ -25,7 +25,6 @@ springboot-developer
 │   │   │   └── me.blogSpringBoot
 │   │   │       └── springbootdeveloper
 │   │   │           ├── config
-│   │   │           │   ├── WebSecurityConfig
 │   │   │           │   └── WebSocketConfig
 │   │   │           ├── controller
 │   │   │           │   ├── BlogApiController
@@ -41,6 +40,8 @@ springboot-developer
 │   │   │           │   └── BlogRepository
 │   │   │           ├── service
 │   │   │           │   └── BlogService
+│   │   │           ├── security
+│   │   │           │   └── ServerSecurityConfigration
 │   │   │           └── websocket
 │   │   │               ├── WebSocketErrorHandler
 │   │   │               └── UserChannelInterceptor
