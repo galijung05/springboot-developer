@@ -5,6 +5,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,6 +30,14 @@ public class Article {
 
     @Column (name = "content", nullable = false)
     private String content;
+
+    @CreatedDate // 엔티티가 생성될 때 생성 시간 저장
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
+
+    @LastModifiedDate // 엔티티가 수정될 때 수정 시간 저장
+    @Column(name = "update_at")
+    private LocalDateTime updateAt;
 
     // 빌더 패턴으로 객체 생성
     @Builder

@@ -29,82 +29,81 @@ import java.util.Arrays;
 @Order(1)
 @RequiredArgsConstructor
 public class ServerSecurityConfigration {
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFaiureHandler loginFailureHandler;
+    private final LogoutSuccessHandler logoutSuccessHandler;
+    private final RestAuthenticationEntryPoint authenticationEntryPoint;
+    private final AdminUserService userService;
 
-        private final LoginSuccessHandler loginSuccessHandler;
-        private final LoginFaiureHandler loginFailureHandler;
-        private final LogoutSuccessHandler logoutSuccessHandler;
-        private final RestAuthenticationEntryPoint authenticationEntryPoint;
-        private final AdminUserService userService;
+    @Value("${react.server.front_url}")
+    private String frontDomain;
 
-        @Value("${react.server.front_url}")
-        private String frontDomain;
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList(frontDomain));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
-        @Bean
-        public CorsConfigurationSource corsConfigurationSource() {
-            CorsConfiguration configuration = new CorsConfiguration();
-            configuration.setAllowedOrigins(Arrays.asList(frontDomain));
-            configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            configuration.setAllowedHeaders(Arrays.asList("*"));
-            configuration.setAllowCredentials(true);
-            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            source.registerCorsConfiguration("/**", configuration);
-            return source;
-        }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
 
-        @Autowired
-        public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userService);
-            auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-        }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable() // CSRF 보호 비활성화
+                .headers().frameOptions().disable() // Frame Options 비활성화
+                .and()
+                .cors().and()
+                .formLogin(form -> form //form 기반 로그인 설정
+                        .loginProcessingUrl("/admin/auth")
+                        .usernameParameter("j_username")
+                        .passwordParameter("j_password")
+                        .successHandler(loginSuccessHandler)
+                        .failureHandler(loginFailureHandler)
+                        .permitAll()
+                )
+                .logout(logout -> logout // 로그아웃 설정
+                        .logoutUrl("/admin/logout")
+                        .logoutSuccessHandler(logoutSuccessHandler)
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                )
+                .exceptionHandling(exceptions -> exceptions
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                )
+                .authorizeHttpRequests(authorize -> authorize // 인증, 인가 설정
+                        .requestMatchers("/","/**","/h2-console/**").permitAll()
+                        .requestMatchers("/admin/api/check/test/**", "/admin/**", "/ws/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .sessionFixation().migrateSession()
+                );
 
-        @Bean
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            http
-                    .csrf().disable() // CSRF 보호 비활성화
-                    .headers().frameOptions().disable() // Frame Options 비활성화
-                    .and()
-                    .cors().and()
-                    .formLogin(form -> form
-                            .loginProcessingUrl("/admin/auth")
-                            .usernameParameter("j_username")
-                            .passwordParameter("j_password")
-                            .successHandler(loginSuccessHandler)
-                            .failureHandler(loginFailureHandler)
-                            .permitAll()
-                    )
-                    .logout(logout -> logout
-                            .logoutUrl("/admin/logout")
-                            .logoutSuccessHandler(logoutSuccessHandler)
-                            .deleteCookies("JSESSIONID")
-                            .invalidateHttpSession(true)
-                            .permitAll()
-                    )
-                    .exceptionHandling(exceptions -> exceptions
-                            .authenticationEntryPoint(authenticationEntryPoint)
-                    )
-                    .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers("/","/**","/h2-console/**").permitAll()
-                            .requestMatchers("/admin/api/check/test/**", "/admin/**", "/ws/**").permitAll()
-                            .anyRequest().authenticated()
-                    )
-                    .sessionManagement(session -> session
-                            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                            .sessionFixation().migrateSession()
-                    );
+        return http.build();
+    }
 
-            return http.build();
-        }
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
 
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
 
-        @Bean
-        public SessionRegistry sessionRegistry() {
-            return new SessionRegistryImpl();
-        }
-
-        @Bean
-        public HttpSessionEventPublisher httpSessionEventPublisher() {
-            return new HttpSessionEventPublisher();
-        }
     @Bean
     public static PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();

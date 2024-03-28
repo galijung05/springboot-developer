@@ -23,6 +23,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
     // WebSocket을 위한 Spring Boot 스타터 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
@@ -34,6 +36,7 @@ dependencies {
 
     //security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     // Swagger 의존성
     implementation 'io.springfox:springfox-swagger2:3.0.0'

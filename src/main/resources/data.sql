@@ -13,6 +13,6 @@ INSERT INTO admin_user (name, password, role_type, status, username) VALUES
 INSERT INTO admin_user (name, password, role_type, status, username) VALUES
     ('관리자','$2a$10$iWWQbag3BxMk6xKmZhwSNeRVgCH8Ksyp6LQnXIEdQnBHNVlABXoby',2,0,'admin3');
 
-INSERT INTO article (title, content) VALUES ('User-friendly transitional knowledge user','Use the open-source COM application, then you can reboot the 1080p program!');
-INSERT INTO article (title, content) VALUES ('Future-proofed even-keeled knowledge user','The TCP transmitter is down, copy the digital capacitor so we can override the JSON circuit!');
-INSERT INTO article (title, content) VALUES ('Digitized non-volatile middleware','You can''t generate the microchip without overriding the redundant SQL interface!');
+INSERT INTO article (title, content, create_at, update_at) VALUES ('User-friendly transitional knowledge user','Use the open-source COM application, then you can reboot the 1080p program!', NOW(), NOW());
+INSERT INTO article (title, content, create_at, update_at) VALUES ('Future-proofed even-keeled knowledge user','The TCP transmitter is down, copy the digital capacitor so we can override the JSON circuit!', NOW(), NOW());
+INSERT INTO article (title, content, create_at, update_at) VALUES ('Digitized non-volatile middleware','You can''t generate the microchip without overriding the redundant SQL interface!', NOW(), NOW());
