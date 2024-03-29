@@ -5,11 +5,8 @@ import me.blogSpringBoot.springbootdeveloper.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -24,9 +21,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-@Configuration
-@EnableWebSecurity
-@Order(1)
+// @Configuration
+// @EnableWebSecurity
+// @Order(1)
 @RequiredArgsConstructor
 public class ServerSecurityConfigration {
     private final LoginSuccessHandler loginSuccessHandler;
