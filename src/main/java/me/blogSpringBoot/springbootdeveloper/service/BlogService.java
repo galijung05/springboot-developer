@@ -5,6 +5,7 @@ import me.blogSpringBoot.springbootdeveloper.domain.Article;
 import me.blogSpringBoot.springbootdeveloper.dto.AddArticleRequest;
 import me.blogSpringBoot.springbootdeveloper.dto.UpdateArticleRequest;
 import me.blogSpringBoot.springbootdeveloper.repository.BlogRepository;
+import me.blogSpringBoot.springbootdeveloper.config.error.exception.ArticleNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
@@ -29,7 +30,7 @@ public class BlogService {
     // 블로그 글 하나 조회 메서드
     public Article findById(long id) {
         return blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+                .orElseThrow(ArticleNotFoundException::new);
     }
 
     // 블로그 글 삭제 메서드

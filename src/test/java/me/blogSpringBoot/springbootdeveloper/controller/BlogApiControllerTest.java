@@ -2,6 +2,7 @@ package me.blogSpringBoot.springbootdeveloper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
+import me.blogSpringBoot.springbootdeveloper.config.error.ErrorCode;
 import me.blogSpringBoot.springbootdeveloper.domain.Article;
 import me.blogSpringBoot.springbootdeveloper.dto.AddArticleRequest;
 import me.blogSpringBoot.springbootdeveloper.dto.UpdateArticleRequest;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -169,6 +171,40 @@ class BlogApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content").value(content))
                 .andExpect(jsonPath("$.title").value(title));
+    }
+
+    @DisplayName("findArticle: 존재하지 않는 아티클을 조회하려고 하면 조회에 실패한다.")
+    @Test
+    public void findArticleInvalidArticle() throws Exception {
+        // given
+        final String url = "/api/articles/{id}";
+        final long invalidId = 1;
+
+        // when
+        final ResultActions resultActions = mockMvc.perform(get(url, invalidId));
+
+        // then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value(ErrorCode.ARTICLE_NOT_FOUND.getMessage()))
+                .andExpect(jsonPath("$.code").value(ErrorCode.ARTICLE_NOT_FOUND.getCode()));
+    }
+
+    @DisplayName("findArticle: 잘못된 HTTP 메서드로 아티클을 조회하려고 하면 조회에 실패한다.")
+    @Test
+    public void invalidHttpMethod() throws Exception {
+        // given
+        final String url = "/api/articles/{id}";
+
+        // when
+        final ResultActions resultActions = mockMvc.perform(post(url, 1));
+
+        // then
+        resultActions
+                .andDo(print()) // 실제 응답이 어떻게 나오는지 콘솔로그에서 확인 가능
+                .andExpect(status().isMethodNotAllowed())
+                .andExpect(jsonPath("$.message").value(ErrorCode.METHOD_NOT_ALLOWED.getMessage()));
     }
 
     @DisplayName("findArticle : 블로그 글 삭제에 성공하기")
