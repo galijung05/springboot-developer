@@ -24,9 +24,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
-    testImplementation 'org.projectlombok:lombok'
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     // WebSocket을 위한 Spring Boot 스타터 의존성 추가
@@ -55,6 +56,11 @@ dependencies {
     // XML 매핑 자동화
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
+    // OAuth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // 가짜 데이터 생성
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
 }
 test {
     useJUnitPlatform()
